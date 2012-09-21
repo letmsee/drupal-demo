@@ -1,0 +1,196 @@
+<?php
+
+/**
+ * @file
+ * Provides iTunes namespace, <channel> and <item> elements for Views RSS module.
+ */
+
+/**
+ * Implements hook_views_rss_namespaces().
+ */
+function views_rss_google_products_views_rss_namespaces() {
+  $namespaces['g'] = array(
+    'prefix' => 'xmlns',
+    'uri' => 'http://base.google.com/ns/1.0',
+  );
+  return $namespaces;
+}
+
+/**
+ * Implements hook_views_rss_item_elements().
+ */
+function views_rss_google_products_views_rss_item_elements() {
+  return array(
+    // Basic Product Information.
+    'g:id' => array(
+      'description' => t('The identifier for each item has to be unique within your account, and cannot be re-used between feeds. If you have multiple feeds, ids of items within different feeds must still be unique. You can use any sequence of letters and digits for the item id.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#id',
+      'group' => 'basic',
+    ),
+    'g:google_product_category' => array(
+      'description' => t('The "Google product category" attribute indicates the category of the product being submitted, according to the <a href="!taxonomy_url">Google product taxonomy</a>. This attribute accepts only one value, taken from the product taxonomy tree. If your items fall into multiple categories, include only one category which is the most relevant.', array(
+        '!taxonomy_url' => url('http://support.google.com/merchants/bin/answer.py?answer=1705911'),
+      )),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#google_product_category',
+      'group' => 'basic',
+    ),
+    'g:product_type' => array(
+      'description' => t('This attribute also indicates the category of the product being submitted, but you can provide your own classification. Unlike the "Google product category", you can include more than one "product type" attribute value if products apply to more than one category. Please include the full category string. For example, if your products belong in Refrigerators list the full string: Home & Garden > Kitchen & Dining > Kitchen Appliances > Refrigerators. Any separator such as > or / may be used.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#product_type',
+      'group' => 'basic',
+    ),
+    'g:image_link' => array(
+      'description' => t('This is the URL of an associated image for a product. Submit full-size images for your products and do not submit thumbnail versions of the images. For all apparel products, we require images of at least 250 x 250 pixels and recommend images of at least 400 x 400 pixels.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#image_link',
+      'group' => 'basic',
+    ),
+    'g:additional_image_link' => array(
+      'description' => t('If you have additional images for this item, include them in this attribute. For example, if you have images that show the product from a different angle than the main image, or if you have images of the packaging or the product in various settings.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#additional_image_link',
+      'group' => 'basic',
+    ),
+    'g:condition' => array(
+      'description' => t('There are only three accepted values: "new" (the product is brand-new and has never been used; it is in its original packaging which has not been opened), "refurbished" (the product has been restored to working order; this includes, for example, remanufactured printer cartridges) and "used" (if the two previous values don\'t apply; for example, if the product has been used before or the original packaging has been opened or is missing).'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#condition',
+      'group' => 'basic',
+    ),
+    // Availability & Price.
+    'g:availability' => array(
+      'description' => t("Required for all items in feeds targeting the US, Japan, UK, Germany, France. Recommended for all other countries. However, you need to use this attribute with one of the following if you want to submit items that are out of stock in your data feed. If you don't use this attribute, all the items in your data feed must be in stock on your site."),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#availability',
+      'group' => 'price',
+    ),
+    'g:price' => array(
+      'description' => t('The price of the item has to be the most prominent price on the landing page. If multiple items are on the same page with multiple prices, it has to be straightforward for the user to find the correct item and corresponding price.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#price',
+      'group' => 'price',
+    ),
+    'g:sale_price' => array(
+      'description' => t('Use this attribute to submit the advertised sale price of the item. Learn more about <a href="!info_url">submitting sale price information</a>.', array(
+        '!info_url' => url('http://support.google.com/merchants/bin/answer.py?answer=1196048'),
+      )),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#sale_price',
+      'group' => 'price',
+    ),
+    'g:sale_price_effective_date' => array(
+      'description' => t('Used in conjunction with sale price. This attribute indicates the date range during which the sale price applies.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#condition',
+      'group' => 'price',
+    ),
+    // Unique Product Identifiers.
+    'g:brand' => array(
+      'description' => t('Brand of the item. Required for all items - except for books, media and custom made goods, or if you are providing "mpn" and "gtin".'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#brand',
+      'group' => 'identifiers',
+    ),
+    'g:gtin' => array(
+      'description' => t('In this attribute, you will include Global Trade Item Numbers (GTINs) for your products. These identifiers include UPC (in North America), EAN (in Europe), JAN (in Japan), and ISBN (for books).'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#gtin',
+      'group' => 'identifiers',
+    ),
+    'g:mpn' => array(
+      'description' => t('Manufacturer Part Number (MPN) of the item. This code uniquely identifies the product to its manufacturer. In particular, the combination of brand and MPN clearly specifies one product.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#mpn',
+      'group' => 'identifiers',
+    ),
+    // Apparel Products.
+    'g:gender' => array(
+      'description' => t('Gender of the item.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#gender',
+      'group' => 'apparel',
+    ),
+    'g:age_group' => array(
+      'description' => t('Target age group of the item.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#age_group',
+      'group' => 'apparel',
+    ),
+    'g:color' => array(
+      'description' => t('Dominant color of the item.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#color',
+      'group' => 'apparel',
+    ),
+    'g:size' => array(
+      'description' => t('This indicates the size of a product. You may any provide values which are appropriate to your items. Examples for sizing values can be found <a href="!sizing_url">in this article</a>.', array(
+        '!sizing_url' => url('http://support.google.com/merchants/bin/answer.py?answer=1347943'),
+      )),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#size',
+      'group' => 'apparel',
+    ),
+    // Product Variants
+    'g:item_group_id' => array(
+      'description' => t('All items that are color/material/pattern/size variants of the same product must have the same item group id. If you have a "Parent SKU" that is shared by all variants of a product, you can provide that as the value for "item group id".'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#item_group_id',
+      'group' => 'variants',
+    ),
+    'g:color' => array(
+      'description' => t('This defines the dominant color(s) of an item.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#color',
+      'group' => 'variants',
+    ),
+    'g:material' => array(
+      'description' => t('The material or fabric that a product is made out of. For example, a high heel pump might have values of "Leather", "Denim", "Suede", etc.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#material',
+      'group' => 'variants',
+    ),
+    'g:pattern' => array(
+      'description' => t('The pattern or graphic print featured on a product. For example, a t-shirt might have a logo of a sports team and have pattern values of "Bears", "Tigers", etc. A dress might come in two prints, and have pattern values of "Polka Dot", "Striped", "Paisley", etc.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#pattern',
+      'group' => 'variants',
+    ),
+    'g:size' => array(
+      'description' => t('This indicates the size of a product. You may any provide values which are appropriate to your items.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#size',
+      'group' => 'variants',
+    ),
+    // Tax & Shipging
+    'g:tax' => array(
+      'description' => t('The tax attribute is an item-level override for merchant-level tax settings as defined in your Google Merchant Center account. This attribute is only accepted in the US, if your feed targets a country outside of the US, please do not use this attribute.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#tax',
+      'group' => 'tax',
+    ),
+    'g:vat' => array(
+      'description' => t('The vat attribute is an item-level override for merchant-level VAT settings as defined in your Google Merchant Center account. This attribute should be used if your feed targets a country outside of the US.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#vat',
+      'group' => 'tax',
+    ),
+    'g:shipping' => array(
+      'description' => t('This attribute provides the specific shipping estimate for the product. Providing this attribute for an item overrides the global shipping settings you defined in your Google Merchant Center settings.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#shipping',
+      'group' => 'tax',
+    ),
+    'g:shipping_weight' => array(
+      'description' => t('This is the weight of the product used to calculate the shipping cost of the item.'),
+      'help' => 'http://support.google.com/merchants/bin/answer.py?hl=en&answer=188494#shipping_weight',
+      'group' => 'tax',
+    ),
+  );
+}
+
+function views_rss_google_products_views_rss_element_groups() {
+  return array(
+    'basic' => array(
+      'title' => t('Basic Product Information'),
+    ),
+    'price' => array(
+      'title' => t('Availability & Price'),
+    ),
+    'identifiers' => array(
+      'title' => t('Unique Product Identifiers'),
+    ),
+    'apparel' => array(
+      'title' => t('Apparel Products'),
+      'description' => t('Apparel includes all products that fall under "Apparel & Accessories" (including all sub-categories) in <a href="!taxonomy_url">Google\'s product taxonomy</a>.', array(
+        '!taxonomy_url' => url('http://support.google.com/merchants/bin/answer.py?answer=160081'),
+      ))
+    ),
+    'variants' => array(
+      'title' => t('Product Variants'),
+      'description' => '<p>' . t('We define variants as a group of identical products that only differ by the attributes "color", "material", "pattern", or "size".') . '</p>'
+                     . '<p>' . t('Variant-level information is required only for products in the "Apparel & Accessories" category, and all related subcategories. Apparel variants are only <strong>required</strong> for feeds targeting the US. For feeds targeting other countries, the attributes are recommended and may be required in the future.') . '</p>',
+    ),
+    'tax' => array(
+      'title' => t('Tax & Shipping'),
+      'description' => t('Taxes and shipping are an important part of the total cost of items. In fact, shipping cost is the most common reason for users abandoning their shopping choices. The "tax" attribute is only applicable to feeds targeting the US - for all other countries, value added tax (VAT) has to be included in the price.'),
+    ),
+  );
+}

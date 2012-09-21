@@ -1,0 +1,12 @@
+name = "Views RSS: Google Products Elements"
+description = "Provides Google Products element set for Views RSS module"
+package = Views
+dependencies[] = views_rss
+core = "7.x"
+
+; Information added by drupal.org packaging script on 2012-03-16
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "views_rss_google_products"
+datestamp = "1331858904"
+

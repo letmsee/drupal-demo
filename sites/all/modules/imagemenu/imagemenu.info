@@ -1,0 +1,11 @@
+name = Imagemenu
+description = Alters menus to display images instead of text
+core = 7.x
+php = 5
+
+dependencies[] = image
+configure = admin/config/user-interface/imagemenu
+;scripts[] = imagemenu.js
+
+version = "7.x-dev"
+core = "7.x"

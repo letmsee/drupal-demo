@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ *
+ * Imagemenu install/uninstall
+ */
+
+function imagemenu_uninstall() {
+  db_delete('variable')
+  ->condition('name', 'imagemenu_%', 'LIKE')
+  ->execute();
+}
+
+// function imagemenu_schema() {
+//   return array(
+//     'menu_image' => array(
+//       'description' => 'Store image fids for menu items mlids.',
+//       'fields' => array(
+//         'mlid' => array(
+//           'description' => 'Image file ID.',
+//           'type' => 'int',
+//           'not null' => TRUE,
+//         ),
+//         'fid' => array(
+//           'description' => 'Base image file ID.',
+//           'type' => 'int',
+//           'not null' => TRUE,
+//         ),
+//         'fid2' => array(
+//           'description' => 'Additional image file ID.',
+//           'type' => 'int',
+//           'not null' => TRUE,
+//         ),
+//       ),
+//       'primary key' => array('mlid'),
+//     ),
+//   );
+// }

@@ -1,0 +1,10 @@
+name = Annotate
+description = "Allows users to annotate node"
+package = "Pro Drupal Development"
+core = 7.x
+php = 5.2
+files[] = annotate.module
+files[] = annotate.install
+files[] = annotate.amin.inc
+configures=admin/config/content/annotate/settings
+
